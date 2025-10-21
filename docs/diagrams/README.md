@@ -94,6 +94,78 @@ Complete automation workflow for weekly pipeline execution.
 
 ---
 
+### 5. [Security Architecture](05-security-architecture.md)
+**Audience:** CISO, Security Teams, Compliance Officers, Auditors  
+**Complexity:** Detailed
+
+Comprehensive security controls, encryption, network isolation, and compliance.
+
+**Key Topics:**
+- 5-layer defense in depth strategy
+- VPC isolation and network security
+- IAM roles and least privilege
+- Encryption at-rest and in-transit (TLS 1.3, AES-256)
+- Compliance controls (SOC 2, HIPAA, ISO 27001)
+- GuardDuty, Security Hub, CloudTrail monitoring
+- Incident response playbook
+- Security metrics and SLAs
+
+**Use When:**
+- Security audits
+- Compliance reviews
+- Penetration testing
+- Incident response planning
+
+---
+
+### 6. [API Gateway & Bedrock AI Assistant](06-api-bedrock-flow.md)
+**Audience:** Product Managers, AI Teams, Solution Architects  
+**Complexity:** Medium
+
+How the AI assistant answers business questions using Bedrock and Knowledge Base.
+
+**Key Topics:**
+- Request/response flow with sequence diagram
+- Bedrock Knowledge Base architecture (S3 vector store)
+- Titan Embeddings v2 vectorization
+- DynamoDB caching strategy (67% hit rate)
+- Example Q&A flows with real responses
+- API Gateway configuration
+- Nightly knowledge base sync process
+- Cost analysis ($11.55/month → $0.60 optimized)
+
+**Use When:**
+- Understanding AI assistant capabilities
+- Optimizing question answering
+- Explaining to product teams
+- Cost optimization
+
+---
+
+### 7. [CI/CD Deployment Pipeline](07-cicd-pipeline.md)
+**Audience:** DevOps Engineers, CTOs, Engineering Leadership  
+**Complexity:** Detailed
+
+Automated testing, building, and deployment workflow with GitHub Actions.
+
+**Key Topics:**
+- GitHub Actions workflows (PR validation + deployment)
+- Testing pyramid (unit, integration, E2E)
+- Docker build & scan (Trivy)
+- Terraform deployment automation
+- Blue/Green deployment for Fargate
+- Canary deployment for Lambda
+- Rollback procedures and triggers
+- DORA metrics tracking
+
+**Use When:**
+- Setting up CI/CD
+- Onboarding DevOps engineers
+- Optimizing deployment speed
+- Implementing rollback strategies
+
+---
+
 ## 🎯 Choosing the Right Diagram
 
 ### For CEO/Board Presentations:
@@ -157,10 +229,13 @@ https://mermaid.live/
 | **Data Flow** | 120+ | 25+ | 30+ | Medium |
 | **ML Pipeline** | 180+ | 30+ | 40+ | High |
 | **Step Functions** | 200+ | 20+ | 25+ | Medium |
+| **Security Architecture** | 220+ | 40+ | 45+ | High |
+| **API & Bedrock Flow** | 180+ | 25+ | 20+ | Medium |
+| **CI/CD Pipeline** | 250+ | 35+ | 40+ | High |
 
-**Total Documentation:** 650+ lines of diagram code  
-**Visual Elements:** 110+ nodes  
-**Data Flows:** 145+ connections
+**Total Documentation:** 1,300+ lines of diagram code  
+**Visual Elements:** 210+ nodes  
+**Data Flows:** 250+ connections
 
 ---
 
