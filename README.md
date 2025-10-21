@@ -41,6 +41,8 @@ This platform analyzes 100,000+ customer records to predict engagement, identify
 
 ## 🏗️ Architecture
 
+📐 **[View Comprehensive Architecture Diagrams](docs/diagrams/)** - Mermaid diagrams for system architecture, data flow, ML pipeline, and orchestration.
+
 ### High-Level Components
 
 ```

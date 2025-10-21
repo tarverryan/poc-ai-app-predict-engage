@@ -83,6 +83,19 @@ poc-ai-app-predict-engage/
 
 ---
 
+## 📐 Visual Architecture
+
+Before diving into code, review the comprehensive architecture diagrams in [`docs/diagrams/`](docs/diagrams/):
+
+1. **[System Architecture](docs/diagrams/01-system-architecture.md)** - Complete AWS serverless architecture
+2. **[Data Flow Pipeline](docs/diagrams/02-data-flow-pipeline.md)** - How data transforms from CSV to predictions
+3. **[ML Pipeline](docs/diagrams/03-ml-pipeline.md)** - Machine learning training & inference workflow
+4. **[Step Functions Workflow](docs/diagrams/04-step-functions-workflow.md)** - Weekly automation pipeline
+
+These diagrams make complex concepts easier to understand visually!
+
+---
+
 ## 🔑 Key Concepts for Interns
 
 ### 1. What is "Serverless"?
