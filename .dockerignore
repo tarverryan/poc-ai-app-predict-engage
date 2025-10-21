@@ -1,0 +1,115 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+.circleci
+
+# Documentation
+*.md
+docs/
+LICENSE
+CHANGELOG.md
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info
+dist/
+build/
+*.egg
+.pytest_cache
+.coverage
+htmlcov/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Data files (exclude from Docker images)
+*.csv
+*.parquet
+*.xlsx
+*.db
+*.sqlite
+data/raw/
+data/processed/
+
+# Reports output
+reports/output/*.pdf
+
+# Logs
+*.log
+logs/
+
+# Secrets
+*.pem
+*.key
+*.crt
+*secrets*
+*credentials*
+.env
+.env.*
+
+# Terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+terraform.tfstate.d/
+
+# LocalStack
+.localstack/
+volume/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node (if any tooling uses it)
+node_modules/
+npm-debug.log
+
+# Testing
+.coverage
+.pytest_cache
+test-results/
+
+# ML Models (large files - exclude from images)
+models/*.pkl
+models/*.h5
+*.joblib
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
+
+# Coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*

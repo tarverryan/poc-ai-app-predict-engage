@@ -111,7 +111,6 @@ Thumbs.db
 desktop.ini
 
 # Docker
-.dockerignore
 docker-compose.override.yml
 
 # LocalStack
