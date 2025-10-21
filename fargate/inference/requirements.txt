@@ -1,0 +1,22 @@
+# Inference Container Dependencies
+
+# Core ML
+xgboost==2.0.3
+scikit-learn==1.3.2
+pandas==2.0.3
+numpy==1.24.3
+
+# AWS SDK
+boto3==1.34.10
+botocore==1.34.10
+awswrangler==3.5.2
+
+# Utilities
+pyarrow==13.0.0
+joblib==1.3.2
+tqdm==4.66.1
+python-dateutil==2.8.2
+
+# Monitoring
+cloudwatch==1.0.8
+

@@ -1,0 +1,43 @@
+# CODEOWNERS
+# This file defines who owns which parts of the codebase
+# Code owners are automatically requested for review when someone opens a PR
+
+# Default owners for everything in the repo
+* @username
+
+# Documentation
+/docs/ @username
+/*.md @username
+
+# Infrastructure as Code
+/terraform/ @username @infra-team
+
+# Lambda Functions
+/lambda/ @username @backend-team
+
+# Fargate ML Pipeline
+/fargate/ @username @ml-team @data-team
+
+# SQL Queries
+/sql/ @username @data-team
+
+# Data Generation
+/data/ @username @data-team
+
+# Bedrock Agent
+/bedrock/ @username @ml-team
+
+# Tests
+/tests/ @username
+
+# CI/CD
+/.github/ @username @devops-team
+
+# Scripts
+/scripts/ @username @devops-team
+
+# Configuration
+/config/ @username @infra-team
+docker-compose.yml @username @devops-team
+Makefile @username @devops-team
+

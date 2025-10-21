@@ -1,0 +1,169 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# Environments
+.env
+.env.local
+.env.*.local
+
+# Data files (large binary files)
+*.parquet
+*.csv
+*.xlsx
+*.db
+*.sqlite
+*.sql.gz
+
+# But keep example/test data
+!tests/fixtures/*.csv
+!tests/fixtures/*.parquet
+
+# AWS & Terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
+!terraform/*.example.tfvars
+.terraform/
+.terraformrc
+terraform.rc
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# Secrets & credentials
+*.pem
+*.key
+*.crt
+*secrets*
+*credentials*
+*.env
+.aws/
+config.ini
+
+# Logs
+*.log
+logs/
+*.out
+*.err
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# LocalStack
+.localstack/
+volume/
+
+# Node (if using for any tooling)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Reports output (PDFs are generated, don't commit)
+reports/output/*.pdf
+!reports/output/README.md
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# ML Models (large files)
+*.pkl
+*.h5
+*.hdf5
+*.joblib
+models/*.pkl
+models/*.h5
+
+# But keep small example models
+!tests/fixtures/*.pkl
+
+# Generated files
+*_generated.*
+auto_*
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# Security scan results
+bandit-report.txt
+safety-report.txt
+trivy-results.json
+
+# Package files
+*.tar.gz
+*.zip
+*.rar
+
+# System files
+*.pid
+*.sock

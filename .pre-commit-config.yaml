@@ -1,0 +1,120 @@
+# Pre-Commit Hooks - Mirrors GitHub Actions Checks
+# Install: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # ============================================
+  # Stage 1: Code Formatting (Mirrors CI Stage 1)
+  # ============================================
+  - repo: https://github.com/psf/black
+    rev: 23.11.0
+    hooks:
+      - id: black
+        language_version: python3.11
+        args: [--line-length=100]
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: [--profile=black, --line-length=100]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        args: [--max-line-length=100, --extend-ignore=E203,W503]
+        additional_dependencies: [flake8-docstrings]
+
+  # ============================================
+  # Stage 2: Security Checks (Mirrors CI Stage 3)
+  # ============================================
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: [-ll, -r, lambda/, fargate/]
+        exclude: tests/
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+      - id: check-merge-conflict
+      - id: check-yaml
+        exclude: .github/workflows/
+      - id: check-json
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+
+  # ============================================
+  # Stage 3: Terraform Validation (Mirrors CI Stage 4)
+  # ============================================
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.85.0
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_validate
+      - id: terraform_tflint
+      - id: terraform_tfsec
+        args:
+          - --args=--minimum-severity=MEDIUM
+
+  # ============================================
+  # Stage 4: Python Linting
+  # ============================================
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.7.1
+    hooks:
+      - id: mypy
+        args: [--ignore-missing-imports, --python-version=3.11]
+        additional_dependencies: [types-all]
+        exclude: tests/
+
+  # ============================================
+  # Stage 5: Protected Class Safeguards (AI Ethics)
+  # ============================================
+  - repo: local
+    hooks:
+      - id: check-prohibited-features
+        name: Check for Prohibited Protected Class Features
+        entry: python scripts/check_prohibited_features.py
+        language: python
+        types: [python]
+        pass_filenames: false
+        additional_dependencies: [pyyaml]
+
+  # ============================================
+  # Stage 6: Documentation Checks
+  # ============================================
+  - repo: https://github.com/markdownlint/markdownlint
+    rev: v0.12.0
+    hooks:
+      - id: markdownlint
+        args: [--style=.markdownlint.yml]
+
+  # ============================================
+  # Stage 7: Commit Message Format
+  # ============================================
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.0.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: [--force-scope]
+
+# CI configuration
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: monthly
+  skip: []
+  submodules: false
+

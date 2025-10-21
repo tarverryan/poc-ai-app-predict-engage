@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-10-21T14:32:13.578755",
+  "data_size": 100000,
+  "features": [
+    "age",
+    "tenure_months",
+    "sessions_last_7_days",
+    "session_duration_avg_minutes",
+    "followers_count",
+    "total_connections",
+    "posts_last_30_days",
+    "active_gigs_count",
+    "transaction_revenue_last_90_days"
+  ],
+  "models": {
+    "engagement": {
+      "rmse": 0.09155072990963094,
+      "metric": "RMSE"
+    },
+    "churn": {
+      "accuracy": 0.75345,
+      "metric": "Accuracy"
+    },
+    "ltv": {
+      "rmse": 357.44759984313737,
+      "metric": "RMSE (USD)"
+    }
+  }
+}

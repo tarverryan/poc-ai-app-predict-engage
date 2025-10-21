@@ -1,0 +1,37 @@
+# act Configuration for Local CI/CD Emulation
+# https://github.com/nektos/act
+
+# Use larger runner image for better compatibility
+-P ubuntu-latest=catthehacker/ubuntu:full-latest
+
+# Mount Docker socket for Docker-in-Docker operations
+--container-daemon-socket /var/run/docker.sock
+
+# Set environment variables for LocalStack
+--env AWS_ENDPOINT_URL=http://host.docker.internal:4566
+--env AWS_ACCESS_KEY_ID=test
+--env AWS_SECRET_ACCESS_KEY=test
+--env AWS_DEFAULT_REGION=us-east-1
+--env LOCALSTACK_ENDPOINT=http://host.docker.internal:4566
+
+# Use local cache directory
+--artifact-server-path /tmp/artifacts
+
+# Verbose output for debugging
+--verbose
+
+# Reuse containers for faster runs
+--reuse
+
+# Bind workspace directory
+--bind
+
+# Network mode (use host network to access LocalStack)
+--network host
+
+# Set job timeout (default: 5 hours)
+--job-timeout 1h
+
+# Skip jobs that require secrets (unless provided)
+--secret-file .secrets
+

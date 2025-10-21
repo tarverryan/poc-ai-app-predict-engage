@@ -1,0 +1,23 @@
+# Executive Report Generation Dependencies
+
+# PDF Generation
+reportlab==4.0.7
+
+# Data Analysis
+pandas==2.1.4
+numpy==1.26.2
+scipy==1.11.4
+
+# Visualization
+matplotlib==3.8.2
+seaborn==0.13.0
+
+# Machine Learning
+scikit-learn==1.3.2
+
+# Image Processing
+pillow==10.1.0
+
+# Data Loading
+pyarrow==14.0.1
+

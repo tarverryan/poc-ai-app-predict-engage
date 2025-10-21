@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack-main
+    ports:
+      - "4566:4566"            # LocalStack Gateway
+      - "4510-4559:4510-4559"  # External services port range
+    environment:
+      # Core configuration
+      - SERVICES=s3,dynamodb,lambda,stepfunctions,ecs,ecr,athena,glue,apigateway,iam,logs,cloudwatch,sts,secretsmanager
+      - DEBUG=1
+      - PERSISTENCE=0
+      - LAMBDA_EXECUTOR=docker
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      
+      # AWS configuration
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      
+      # Feature flags
+      - DISABLE_CUSTOM_CORS_S3=0
+      - DISABLE_CUSTOM_CORS_APIGATEWAY=0
+      - EAGER_SERVICE_LOADING=1
+      
+      # LocalStack Pro features (disabled for Community)
+      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY:-}
+      
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./data:/data"  # Mount data directory
+      - "./lambda:/lambda"  # Mount lambda functions
+      - "./fargate:/fargate"  # Mount fargate containers
+    networks:
+      - localstack-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+networks:
+  localstack-network:
+    driver: bridge
+
+volumes:
+  localstack-volume:
+
