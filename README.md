@@ -35,7 +35,7 @@ This platform analyzes 100,000+ customer records to predict engagement, identify
 - **Return**: $7.1M annual revenue increase
 - **ROI**: 610% with 51-day payback
 
-**Report**: See `reports/output/CEO_Engagement_Report_2025-10-21.pdf` for comprehensive analysis.
+**Report**: See [CEO Engagement Report](reports/output/CEO_Engagement_Report_2025-10-21.pdf) for comprehensive analysis.
 
 ---
 
@@ -271,7 +271,7 @@ Identify at-risk users before they churn:
 - **Phase 2** (Month 3-4): AI algorithms → +25% engagement
 - **Phase 3** (Month 5-6): Monetization → +35% engagement
 
-See `reports/ENGAGEMENT_IMPROVEMENT_PLAYBOOK.md` for details.
+See [Engagement Improvement Playbook](reports/ENGAGEMENT_IMPROVEMENT_PLAYBOOK.md) for details.
 
 ### 4. Executive Reporting
 
@@ -302,7 +302,7 @@ Automated PDF generation answering:
 - GDPR/CCPA data privacy controls
 - ISO 27001 security standards
 
-See `docs/security/security_architecture.md` for details.
+See [Security Architecture](docs/security/security_architecture.md) for details.
 
 ### AI Ethics & Fairness
 
@@ -312,7 +312,7 @@ See `docs/security/security_architecture.md` for details.
 - ✅ **Human Oversight**: AI Ethics Committee review process
 - ✅ **Transparency**: Model cards, data provenance
 
-See `docs/frameworks/ai_ethics_framework.md` for full framework.
+See [AI Ethics Framework](docs/frameworks/ai_ethics_framework.md) for full framework.
 
 ---
 
@@ -421,18 +421,19 @@ chore: Build/tooling changes
 
 ### Key Documents
 
-- **Architecture**: `docs/architecture/architecture_flow.md`
-- **Deployment**: `docs/deployment/DEPLOYMENT_REALITY_CHECK.md`
-- **Security**: `docs/security/security_architecture.md`
-- **AI Ethics**: `docs/frameworks/ai_ethics_framework.md`
-- **Testing**: `docs/testing/testing_strategy.md`
-- **Project Structure**: `docs/PROJECT_STRUCTURE.md`
+- **Architecture**: [Architecture Flow](docs/architecture/architecture_flow.md)
+- **Deployment**: [Deployment Reality Check](docs/deployment/DEPLOYMENT_REALITY_CHECK.md)
+- **Security**: [Security Architecture](docs/security/security_architecture.md)
+- **AI Ethics**: [AI Ethics Framework](docs/frameworks/ai_ethics_framework.md)
+- **Testing**: [Testing Strategy](docs/testing/testing_strategy.md)
+- **Project Structure**: [Project Structure](docs/PROJECT_STRUCTURE.md)
 
 ### Reports
 
-- **CEO Report**: `reports/output/CEO_Engagement_Report_2025-10-21.pdf`
-- **Engagement Playbook**: `reports/ENGAGEMENT_IMPROVEMENT_PLAYBOOK.md`
-- **Platform Summary**: `PLATFORM_IMPLEMENTATION_SUMMARY.md`
+- **CEO Report**: [CEO Engagement Report](reports/output/CEO_Engagement_Report_2025-10-21.pdf)
+- **Cost Budget Report**: [CEO Cost Budget Report](reports/output/CEO_Cost_Budget_Report_2025-10-21.pdf)
+- **Architecture Report**: [CEO Architecture Reasoning Report](reports/output/CEO_Architecture_Reasoning_Report_2025-10-21.pdf)
+- **Engagement Playbook**: [Engagement Improvement Playbook](reports/ENGAGEMENT_IMPROVEMENT_PLAYBOOK.md)
 
 ---
 
@@ -476,9 +477,10 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 ## 📞 Contact
 
-For enterprise support, licensing, or partnership inquiries, please contact:
-- Email: [Your Email]
-- Website: [Your Website]
+For questions, bug reports, or feature requests:
+- **GitHub Issues**: [Report an Issue](https://github.com/tarverryan/poc-ai-app-predict-engage/issues)
+- **GitHub Discussions**: [Start a Discussion](https://github.com/tarverryan/poc-ai-app-predict-engage/discussions)
+- **Security Issues**: See [Security Policy](docs/governance/SECURITY.md)
 
 ---
 
