@@ -39,6 +39,29 @@ This platform analyzes 100,000+ customer records to predict engagement, identify
 
 ---
 
+## 📚 Documentation
+
+Comprehensive documentation organized by audience:
+
+### 📊 For Executives (CEO/CTO/Board)
+- **[Quick Start CEO](docs/executive/QUICK_START_CEO.md)** - 30-second overview
+- **[Executive Briefing](docs/executive/EXECUTIVE_BRIEFING.md)** - 1-page business case with ROI
+- **[Cost Budget Analysis](docs/executive/COSTS_BUDGET.md)** - Infrastructure costs ($0 → $12 → $170)
+- **[Architecture Reasoning](docs/executive/ARCHITECTURE_REASONING.md)** - Technical justification
+
+### 💻 For Developers (Engineers/Interns)
+- **[Developer Guide](docs/developer/DEVELOPER_GUIDE.md)** - Comprehensive onboarding guide
+- **[Architecture Diagrams](docs/diagrams/)** - Visual system documentation (Mermaid)
+
+### 🔐 For Contributors
+- **[Contributing Guide](docs/governance/CONTRIBUTING.md)** - Development workflow
+- **[Code of Conduct](docs/governance/CODE_OF_CONDUCT.md)** - Community guidelines
+- **[Security Policy](docs/governance/SECURITY.md)** - Vulnerability reporting
+
+**→ [Full Documentation Index](docs/README.md)**
+
+---
+
 ## 🏗️ Architecture
 
 📐 **[View Comprehensive Architecture Diagrams](docs/diagrams/)** - Mermaid diagrams for system architecture, data flow, ML pipeline, and orchestration.
@@ -87,9 +110,14 @@ This platform analyzes 100,000+ customer records to predict engagement, identify
 poc-ai-app-predict-engage/
 ├── README.md                           # This file
 ├── LICENSE                             # MIT License
-├── CODE_OF_CONDUCT.md                  # Community guidelines
-├── SECURITY.md                         # Security policy
 ├── .gitignore                          # Git ignore rules
+│
+├── docs/                               # 📚 Comprehensive documentation
+│   ├── executive/                      # CEO/CTO/Board docs
+│   ├── developer/                      # Engineer/intern guides
+│   ├── diagrams/                       # Architecture diagrams (Mermaid)
+│   ├── governance/                     # CODE_OF_CONDUCT, SECURITY, etc.
+│   └── project/                        # Project management docs
 │
 ├── data/                               # Data generation & storage
 │   ├── generate_platform_data.py       # Generate 100K synthetic dataset
@@ -411,9 +439,9 @@ chore: Build/tooling changes
 ## 🤝 Contributing
 
 We welcome contributions! Please see:
-- `CODE_OF_CONDUCT.md` for community guidelines
-- `CONTRIBUTING.md` for contribution process
-- `.github/PULL_REQUEST_TEMPLATE.md` for PR template
+- [Code of Conduct](docs/governance/CODE_OF_CONDUCT.md) for community guidelines
+- [Contributing Guide](docs/governance/CONTRIBUTING.md) for contribution process
+- [Pull Request Template](.github/PULL_REQUEST_TEMPLATE.md) for PR template
 
 ---
 
