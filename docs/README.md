@@ -8,19 +8,16 @@ This directory contains comprehensive documentation organized by audience and pu
 
 ## 📂 Documentation Structure
 
-### 📊 [Executive Documentation](executive/)
-**Audience:** CEO, Board, C-Suite, Investors
+### 📊 [Cost & Architecture Analysis](executive/)
+**Audience:** Technical decision makers, architects
 
-- **[Quick Start for CEO](executive/QUICK_START_CEO.md)** - 30-second overview with key decisions
-- **[Executive Briefing](executive/EXECUTIVE_BRIEFING.md)** - 1-page comprehensive business case
 - **[Cost Budget Analysis](executive/COSTS_BUDGET.md)** - Infrastructure costs across 3 scenarios
 - **[Architecture Reasoning](executive/ARCHITECTURE_REASONING.md)** - Technical justification for service choices
 
 **Use when:**
-- Presenting to board
-- Seeking investment
-- Executive decision-making
-- Budget approvals
+- Understanding cost implications
+- Making architecture decisions
+- Planning infrastructure budgets
 
 ---
 

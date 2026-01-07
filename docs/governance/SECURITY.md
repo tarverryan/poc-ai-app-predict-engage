@@ -96,15 +96,17 @@ We use CVSS 3.1 scoring:
 - ✅ **Privacy Preservation**: Differential privacy where applicable
 - ✅ **Explainability**: SHAP values, audit trails
 
-## Compliance
+## Security Best Practices
 
-This project adheres to:
+This project demonstrates security best practices and design patterns:
 
-- **SOC 2 Type II** controls
-- **HIPAA** security standards
-- **ISO 27001** information security
-- **NIST Cybersecurity Framework**
-- **GDPR/CCPA** privacy requirements
+- **Least Privilege**: IAM policies follow least-privilege principles (see [IAM Policies](../security/iam_policies.md) for details)
+- **Secrets Management**: No hardcoded secrets, use AWS Secrets Manager or environment variables
+- **Encryption**: Data encrypted at rest (S3, DynamoDB) and in transit (TLS)
+- **Logging**: Comprehensive logging via CloudWatch for auditability
+- **Access Control**: VPC isolation and security groups for network boundaries
+
+**Note:** This is a learning project, not an audited compliance framework. For production deployments, consult with security professionals and implement appropriate compliance controls based on your specific requirements.
 
 ## Security Contacts
 

@@ -5,32 +5,186 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
-Enterprise ML platform for predicting customer engagement using AWS serverless architecture, XGBoost models, and automated analytics.
+A serverless-first AWS proof-of-concept that demonstrates how to design and orchestrate an AI-driven engagement and prediction workflow using managed AWS services such as Lambda, Step Functions, Fargate, S3, and Athena.
+
+This project was built and shared publicly as a learning and knowledge-sharing exercise for builders exploring scalable, cost-aware cloud architecture patterns on AWS.
 
 ## What is this?
 
-A production-ready proof-of-concept that demonstrates how to build a complete ML platform for predicting and improving customer engagement. Built entirely in LocalStack (zero AWS costs), it processes 100K synthetic customer records through a serverless pipeline to generate predictive insights and executive reports.
+A learning-focused proof-of-concept that demonstrates how to build an end-to-end ML pipeline for predicting customer engagement. Built entirely in LocalStack (zero AWS costs), it processes 100K synthetic customer records through a serverless pipeline to generate predictive insights.
 
-**Key Results:**
-- Engagement prediction with 82% accuracy (R² = 0.82)
-- Automated weekly ML pipeline (Step Functions + Fargate)
-- AI-powered Q&A assistant (Bedrock + Claude 3.5)
-- Executive reports with actionable insights and 610% ROI analysis
+**What it demonstrates:**
+- Serverless orchestration patterns with Step Functions
+- Containerized ML workloads with Fargate
+- Serverless analytics with S3 + Athena
+- AI-powered Q&A with Bedrock Knowledge Base
+- Cost-aware architecture decisions
 
-## Why should you care?
+## Why This Project Exists
 
-This demonstrates:
-- **Architecture Skills**: Complete AWS serverless infrastructure (S3, Glue, Athena, Lambda, Fargate, Bedrock, Step Functions)
-- **ML Engineering**: End-to-end pipeline from data prep to inference
-- **Production Readiness**: CI/CD, security scanning, fairness checks, comprehensive documentation
-- **Business Communication**: CEO-level reports with cost analysis and ROI projections
-- **Cost Efficiency**: Runs locally for $0, scales to $12/month (100K users) or $15K/month (60M users)
+This repository was created as a public learning project to explore AWS serverless orchestration patterns and to share practical architecture decisions with other builders. It is not affiliated with any employer and is intentionally open for community learning, experimentation, and discussion.
 
-## How do I use it?
+The goal is to demonstrate real-world trade-offs when building serverless ML pipelines on AWS, including when to use Lambda vs Fargate, how to structure data for Athena queries, and how to manage costs effectively.
 
-### Quick Start (5 minutes)
+## AWS Architecture Overview
 
-⚠️ **Cost Warning**: Run in a sandbox account; set AWS Budgets to prevent unexpected charges. See [Cost Safeguards](docs/deployment/cost_safeguards.md)
+```mermaid
+graph TB
+    subgraph "Data Ingestion Layer"
+        CSV[Customer Data CSV<br/>100K Records]
+        S3_RAW[(S3 Raw Bucket<br/>Parquet Storage)]
+        GLUE[AWS Glue Crawler<br/>Auto-Discovery]
+    end
+    
+    subgraph "Analytics Layer"
+        ATHENA[Amazon Athena<br/>SQL Queries<br/>Pay-per-Query]
+        GLUE_CAT[(Glue Data Catalog<br/>Metadata)]
+    end
+    
+    subgraph "Orchestration Layer"
+        SF[AWS Step Functions<br/>Workflow Engine]
+        CW_EVENTS[EventBridge<br/>Weekly Trigger]
+    end
+    
+    subgraph "Compute Layer - Lambda"
+        L1[Lambda: Pre-Cleanup<br/>30 sec]
+        L2[Lambda: Data Prep<br/>2 min]
+        L3[Lambda: Create QA Table<br/>30 sec]
+        L4[Lambda: Create Results<br/>1 min]
+    end
+    
+    subgraph "Compute Layer - ML"
+        FARGATE_TRAIN[ECS Fargate: Training<br/>64GB RAM, 30 min<br/>XGBoost ML]
+        FARGATE_INFER[ECS Fargate: Inference<br/>64GB RAM, 20 min<br/>Batch Predictions]
+        ECR[(ECR<br/>Container Images)]
+    end
+    
+    subgraph "AI Layer"
+        BEDROCK[Amazon Bedrock<br/>Claude 3.5 Sonnet]
+        BEDROCK_KB[(Bedrock Knowledge Base<br/>S3 Vector Store<br/>Titan Embeddings v2)]
+        API_GW[API Gateway<br/>RESTful API]
+    end
+    
+    subgraph "Storage & Results"
+        S3_MODELS[(S3 Models Bucket<br/>Trained Models)]
+        S3_RESULTS[(S3 Results Bucket<br/>Predictions)]
+        ATHENA_RESULTS[(Athena Results Table<br/>Queryable)]
+        DYNAMO[(DynamoDB<br/>Prediction Cache)]
+    end
+    
+    subgraph "Monitoring & Security"
+        CW[CloudWatch Logs<br/>Metrics<br/>Alarms]
+        XRAY[X-Ray Tracing<br/>Performance]
+        VPC[VPC Isolation<br/>Private Subnets]
+        IAM[IAM Roles<br/>Least Privilege]
+    end
+    
+    %% Data Flow
+    CSV --> S3_RAW
+    S3_RAW --> GLUE
+    GLUE --> GLUE_CAT
+    GLUE_CAT --> ATHENA
+    
+    %% Orchestration
+    CW_EVENTS -.Weekly Trigger.-> SF
+    SF --> L1
+    L1 --> L2
+    L2 --> FARGATE_TRAIN
+    FARGATE_TRAIN --> FARGATE_INFER
+    FARGATE_INFER --> L3
+    L3 --> L4
+    
+    %% ML Process
+    L2 --> ATHENA
+    ATHENA --> S3_RAW
+    FARGATE_TRAIN --> S3_MODELS
+    S3_MODELS --> FARGATE_INFER
+    FARGATE_INFER --> S3_RESULTS
+    S3_RESULTS --> ATHENA_RESULTS
+    
+    %% Container Management
+    ECR --> FARGATE_TRAIN
+    ECR --> FARGATE_INFER
+    
+    %% AI Layer
+    ATHENA_RESULTS --> BEDROCK_KB
+    S3_RESULTS --> BEDROCK_KB
+    BEDROCK_KB --> BEDROCK
+    API_GW --> BEDROCK
+    BEDROCK --> DYNAMO
+    
+    %% Monitoring
+    SF -.logs.-> CW
+    L1 -.logs.-> CW
+    L2 -.logs.-> CW
+    L3 -.logs.-> CW
+    L4 -.logs.-> CW
+    FARGATE_TRAIN -.logs.-> CW
+    FARGATE_INFER -.logs.-> CW
+```
+
+**Core AWS Services**
+
+- **Amazon API Gateway** — Request entry point for the application, handles authentication and rate limiting
+- **AWS Lambda** — Stateless compute for orchestration and business logic, ideal for short-duration tasks
+- **AWS Step Functions** — Workflow coordination, retries, and execution visibility for the ML pipeline
+- **AWS Fargate** — Containerized execution for heavier model workloads that exceed Lambda limits
+- **Amazon S3** — Durable storage for datasets, models, and outputs with lifecycle management
+- **Amazon Athena** — Serverless analytics over data stored in S3, pay-per-query pricing model
+- **AWS Glue** — Data catalog and schema discovery, enables SQL queries over S3 data
+- **Amazon Bedrock** — AI model access for natural language Q&A over engagement data
+- **Amazon DynamoDB** — Fast prediction caching to reduce redundant computations
+- **Amazon CloudWatch** — Logging, metrics, and operational visibility across all services
+
+## End-to-End Flow
+
+1. **Data Ingestion** — Synthetic customer data (CSV) is uploaded to S3 and cataloged by Glue
+2. **Orchestration** — Step Functions triggers the weekly ML pipeline via EventBridge schedule
+3. **Data Preparation** — Lambda functions clean data and create train/test splits via Athena queries
+4. **Model Training** — Fargate runs containerized XGBoost training job, saves models to S3
+5. **Batch Inference** — Fargate loads trained models and generates predictions for all customers
+6. **Results Storage** — Predictions are written to S3 and made queryable via Athena
+7. **AI Q&A** — Bedrock Knowledge Base enables natural language queries over prediction results
+
+## Key Design Decisions & Trade-offs
+
+This section explains the architectural choices and their trade-offs:
+
+- **Serverless-first approach** — Minimizes operational overhead and idle costs. Trade-off: Cold starts and execution time limits require careful design
+- **Step Functions for orchestration** — Provides built-in retry logic, error handling, and execution visibility. Trade-off: Additional cost per state transition, but worth it for complex workflows
+- **Fargate for ML workloads** — Used where compute duration (30+ minutes) or memory requirements (64GB) exceed Lambda limits. Trade-off: Higher cost than Lambda but necessary for large model training
+- **S3 + Athena for analytics** — Avoids managing a database for a POC. Trade-off: Query performance depends on data partitioning and compression, but acceptable for batch analytics
+- **Bedrock Knowledge Base with S3 vector store** — Simplifies AI integration without managing vector databases. Trade-off: Less flexible than self-hosted solutions, but reduces operational complexity
+- **Emphasis on managed services** — Reduces undifferentiated heavy lifting (server management, scaling, patching). Trade-off: Less control over underlying infrastructure, but appropriate for learning projects
+
+## Security and Cost Considerations
+
+This project demonstrates security and cost-aware design patterns rather than audited compliance controls.
+
+**Security patterns demonstrated:**
+- Least-privilege IAM policies (with wildcard warnings documented for production)
+- Avoiding hardcoded secrets (use environment variables / Secrets Manager)
+- Centralized logging with CloudWatch
+- VPC isolation for compute resources
+- Encryption at rest and in transit
+
+**Cost awareness:**
+- Primary cost drivers: Fargate runtime (64GB RAM), Athena queries (data scanned), CloudWatch logs, Step Functions transitions
+- Optimization strategies: Data partitioning for Athena, lifecycle policies for S3, log retention limits
+- Budget safeguards: AWS Budgets configuration, CloudWatch cost alarms
+
+**⚠️ Important:** Run this project in a sandbox AWS account and configure budgets before experimenting. See [Cost Safeguards](docs/deployment/cost_safeguards.md) for detailed guidance.
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.11+
+- Docker & Docker Compose
+- AWS CLI configured (for LocalStack)
+- Terraform 1.5+ (optional, for infrastructure deployment)
+
+### Quick Start (LocalStack)
 
 ```bash
 # 1. Clone and setup
@@ -40,24 +194,13 @@ cd poc-ai-app-predict-engage
 # 2. Generate synthetic data (100K records)
 python data/generate_platform_data.py
 
-# 3. Generate executive reports
-cd reports
-pip install -r requirements.txt
-python generate_ceo_engagement_report.py
-python generate_ceo_costs_report.py
-python generate_ceo_architecture_report.py
-```
-
-### Full Deployment (LocalStack)
-
-```bash
-# Start LocalStack
+# 3. Start LocalStack
 docker-compose up -d
 
-# Deploy infrastructure
+# 4. Deploy infrastructure (LocalStack)
 make deploy-local
 
-# Run ML pipeline
+# 5. Run ML pipeline
 make run-pipeline
 ```
 
@@ -65,19 +208,23 @@ See [Developer Guide](docs/developer/DEVELOPER_GUIDE.md) for detailed setup inst
 
 ## Documentation
 
-### For Executives
-- [Executive Briefing](docs/executive/EXECUTIVE_BRIEFING.md) - One-page business case
-- [Cost Analysis](docs/executive/COSTS_BUDGET.md) - LocalStack ($0) → 100K users ($12/mo) → 60M users ($15K/mo)
-- [Architecture Justification](docs/executive/ARCHITECTURE_REASONING.md) - Why Fargate over Lambda
-- [CEO Reports](reports/output/) - Three comprehensive PDF reports
+### Architecture & Design
+- [Architecture Overview](docs/architecture.md) - System design and component responsibilities
+- [Architecture Flow](docs/architecture/architecture_flow.md) - Detailed end-to-end data flow
+- [Architecture Diagrams](docs/diagrams/) - Visual documentation (Mermaid diagrams)
+- [Lessons Learned](docs/lessons-learned.md) - What worked, what didn't, and what to change next
 
-### For Engineers
-- [Developer Guide](docs/developer/DEVELOPER_GUIDE.md) - Complete onboarding
-- [Architecture Diagrams](docs/diagrams/) - 7 Mermaid diagrams (system, data flow, ML, security, CI/CD)
+### Development
+- [Developer Guide](docs/developer/DEVELOPER_GUIDE.md) - Complete onboarding guide
+- [Troubleshooting Guide](docs/guides/troubleshooting.md) - Common issues and solutions
 - [SQL Queries](sql/) - Schema definitions and analytics queries
-- [API Documentation](docs/api/) - Bedrock AI assistant integration
 
-### For Contributors
+### Security & Operations
+- [Security Documentation](docs/security/) - IAM policies, secrets management, required permissions
+- [Cost Safeguards](docs/deployment/cost_safeguards.md) - Budget setup and cost optimization
+- [Public Repo Checklist](docs/deployment/PUBLIC_REPO_CHECKLIST.md) - Pre-release verification
+
+### Contributing
 See [CONTRIBUTING.md](docs/governance/CONTRIBUTING.md), [CODE_OF_CONDUCT.md](docs/governance/CODE_OF_CONDUCT.md), and [SECURITY.md](docs/governance/SECURITY.md).
 
 ## Technology Stack
@@ -86,43 +233,13 @@ See [CONTRIBUTING.md](docs/governance/CONTRIBUTING.md), [CODE_OF_CONDUCT.md](doc
 **ML/Analytics:** Python 3.11+, XGBoost, Pandas, NumPy, Scikit-learn  
 **Containers:** Docker, Amazon ECR  
 **Local Development:** LocalStack, Docker Compose  
-**CI/CD:** GitHub Actions with 8-stage validation pipeline
-
-## Security
-
-### Dependency Scanning
-- **Python**: Run `pip-audit` to check for vulnerabilities
-- **Docker**: Images scanned via ECR vulnerability scanning
-- **Terraform**: Use `tfsec` for infrastructure security scanning
-
-### Reporting Security Issues
-See [SECURITY.md](docs/governance/SECURITY.md) for reporting process.
-
-## Architecture
-
-Complete serverless architecture with:
-- **Data Lake:** S3 + Glue Catalog + Athena
-- **ML Pipeline:** Step Functions → Lambda → Fargate (64GB RAM)
-- **AI Assistant:** API Gateway → Bedrock Knowledge Base → Claude 3.5 Sonnet
-- **Security:** VPC isolation, encryption at-rest/in-transit, IAM least-privilege
-- **Compliance:** SOC 2, HIPAA, ISO 27001, NIST AI RMF
-
-[View Architecture Diagrams](docs/diagrams/) for visual documentation.
-
-## Key Features
-
-**Engagement Prediction:** 82% accuracy on 100K users with behavioral features  
-**Churn Prevention:** Identify at-risk users for proactive intervention  
-**Improvement Tactics:** 50+ proven strategies with phased implementation  
-**Executive Reports:** Automated PDF generation with ROI analysis  
-**AI Assistant:** Natural language Q&A over engagement data  
-**Fairness:** Protected class exclusion, bias detection, explainability
+**CI/CD:** GitHub Actions with validation pipeline
 
 ## Project Status
 
-**Status:** Production-ready proof-of-concept  
+**Status:** Learning-focused proof-of-concept  
 **Built:** October 2025  
-**Purpose:** Technical interview demonstration of full-stack ML platform capabilities
+**Purpose:** Public AWS architecture exploration and knowledge sharing
 
 ## Important Disclaimer
 
@@ -133,6 +250,13 @@ Complete serverless architecture with:
 - Run in a **sandbox AWS account** with budget alerts enabled
 - This code is provided "as-is" for demonstration purposes
 - All data is synthetic/mock data generated with Faker
+
+## Author
+
+Created and maintained by **Ryan Tarver**  
+GitHub: [https://github.com/tarverryan](https://github.com/tarverryan)
+
+This project is shared publicly for community learning and discussion.
 
 ## License
 

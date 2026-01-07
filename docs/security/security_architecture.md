@@ -21,15 +21,15 @@
 
 ## 1. Overview
 
-This document outlines the security architecture for the Customer Engagement Prediction Platform, designed to meet enterprise-grade security standards including NIST CSF v2.0, CIS Controls v8, and AWS Well-Architected Framework Security Pillar.
+This document outlines the security architecture for the Customer Engagement Prediction Platform, demonstrating security best practices and design patterns aligned with AWS Well-Architected Framework Security Pillar.
 
 ### 1.1 Security Objectives
 
-1. **Confidentiality**: Protect customer data from unauthorized access
+1. **Confidentiality**: Protect data from unauthorized access
 2. **Integrity**: Ensure data accuracy and prevent tampering
-3. **Availability**: Maintain 99.9% uptime (RTO: 4 hours, RPO: 1 hour)
-4. **Auditability**: Comprehensive logging for compliance and forensics
-5. **Privacy**: GDPR/CCPA compliant data handling
+3. **Availability**: Design for reliability with appropriate redundancy
+4. **Auditability**: Comprehensive logging for operational visibility
+5. **Privacy**: Handle data responsibly (synthetic data only in this POC)
 
 ### 1.2 Threat Landscape
 
@@ -44,14 +44,13 @@ This document outlines the security architecture for the Customer Engagement Pre
 
 ### 2.1 Framework Alignment
 
-| Framework | Version | Compliance Level | Evidence Location |
-|-----------|---------|------------------|-------------------|
-| NIST CSF | v2.0 | Full | `docs/compliance/nist_csf_mapping.xlsx` |
-| CIS Controls | v8 | IG1 (Basic) | `docs/compliance/cis_controls.md` |
-| OWASP Top 10 | 2021 | Full | `docs/compliance/owasp_checklist.md` |
-| AWS WAF | Security Pillar | Full | Terraform configs |
-| ISO 27001 | 2022 | Aligned | `docs/compliance/iso27001_soa.md` |
-| NIST 800-53 | Rev 5 | Moderate | `docs/compliance/nist_800_53.xlsx` |
+This project demonstrates security patterns aligned with:
+
+- **AWS Well-Architected Framework** - Security Pillar principles
+- **OWASP Top 10** - Common security vulnerabilities and mitigations
+- **CIS Controls** - Foundational security practices
+
+**Note:** This is a learning project demonstrating security patterns, not an audited compliance framework. For production deployments, consult with security professionals and implement appropriate compliance controls based on your specific requirements.
 
 ### 2.2 Security Principles
 
@@ -283,40 +282,36 @@ This document outlines the security architecture for the Customer Engagement Pre
 
 ---
 
-## 7. Compliance Mapping
+## 7. Security Best Practices Summary
 
-### 7.1 SOC 2 Type II Controls
+This section summarizes the security patterns demonstrated in this project. For production deployments, consult with security professionals to implement appropriate compliance controls based on your specific regulatory requirements.
 
-| TSC | Control | Evidence | Test Frequency |
-|-----|---------|----------|----------------|
-| CC6.1 | Logical access controls | IAM policies, MFA logs | Quarterly |
-| CC6.2 | Encryption at rest/transit | KMS logs, TLS configs | Quarterly |
-| CC6.6 | Vulnerability management | Scan reports, patch logs | Monthly |
-| CC6.7 | Security monitoring | CloudWatch, GuardDuty | Continuous |
-| CC7.2 | Change management | Terraform PRs, approvals | Per change |
-| CC8.1 | Backup & recovery | S3 versioning, DR tests | Quarterly |
+### 7.1 Access Control Patterns
 
-### 7.2 HIPAA Technical Safeguards
+- **IAM Least Privilege**: Each service has minimal required permissions (see [IAM Policies](iam_policies.md))
+- **MFA Enforcement**: Administrative access requires multi-factor authentication
+- **Role-Based Access**: Services use IAM roles, not access keys
+- **Secrets Management**: No hardcoded credentials, use AWS Secrets Manager
 
-| Requirement | Implementation | Location |
-|-------------|----------------|----------|
-| 164.312(a)(1) - Access Control | IAM roles, MFA | `terraform/compute/iam.tf` |
-| 164.312(a)(2)(iv) - Encryption | AES-256, TLS 1.3 | All layers |
-| 164.312(b) - Audit Controls | CloudTrail, logs | `terraform/network/logging.tf` |
-| 164.312(c)(1) - Integrity | S3 versioning, checksums | `terraform/data/s3.tf` |
-| 164.312(d) - Authentication | MFA, temporary creds | IAM configuration |
-| 164.312(e)(1) - Transmission Security | TLS 1.3, VPC endpoints | Network design |
+### 7.2 Encryption Patterns
 
-### 7.3 GDPR Data Protection
+- **At Rest**: S3, DynamoDB use server-side encryption (AES-256)
+- **In Transit**: TLS 1.3 for all API communications
+- **Key Management**: AWS KMS for encryption key management
 
-| Article | Requirement | Implementation |
-|---------|-------------|----------------|
-| Art. 5 | Data minimization | Collect only necessary fields |
-| Art. 15 | Right to access | API: `GET /data-subject/{id}` |
-| Art. 17 | Right to erasure | API: `DELETE /data-subject/{id}` |
-| Art. 25 | Data protection by design | Encryption, pseudonymization |
-| Art. 32 | Security measures | This entire document |
-| Art. 33 | Breach notification | 72-hour notification process |
+### 7.3 Monitoring and Logging
+
+- **CloudTrail**: All API calls logged for auditability
+- **CloudWatch**: Comprehensive logging from all services
+- **VPC Flow Logs**: Network traffic logging (optional)
+- **Security Monitoring**: GuardDuty for threat detection (optional)
+
+### 7.4 Data Protection
+
+- **Synthetic Data Only**: This POC uses Faker-generated data, no real PII
+- **Data Minimization**: Only collect necessary fields
+- **Retention Policies**: S3 lifecycle policies manage data retention
+- **Backup and Recovery**: S3 versioning enabled for critical data
 
 ---
 
@@ -337,16 +332,15 @@ This document outlines the security architecture for the Customer Engagement Pre
 
 ## 9. References
 
-- NIST Cybersecurity Framework v2.0: https://www.nist.gov/cyberframework
-- CIS Controls v8: https://www.cisecurity.org/controls
+- AWS Well-Architected Framework Security Pillar: https://aws.amazon.com/architecture/well-architected/
 - OWASP Top 10 2021: https://owasp.org/Top10/
-- AWS Well-Architected Security Pillar: https://aws.amazon.com/architecture/well-architected/
-- ISO/IEC 27001:2022: https://www.iso.org/standard/27001
+- CIS Controls v8: https://www.cisecurity.org/controls
+- AWS Security Best Practices: https://aws.amazon.com/architecture/security-identity-compliance/
 
 ---
 
-**Document Owner:** Chief Information Security Officer (CISO)  
-**Review Frequency:** Quarterly  
-**Next Review:** 2025-01-21  
-**Classification:** Internal
+**Document Owner:** Project Maintainer  
+**Review Frequency:** As needed  
+**Last Updated:** 2025-10-21  
+**Classification:** Public
 
