@@ -11,7 +11,7 @@ This project was built and shared publicly as a learning and knowledge-sharing e
 
 ## What is this?
 
-A learning-focused proof-of-concept that demonstrates how to build an end-to-end ML pipeline for predicting customer engagement. Built entirely in LocalStack (zero AWS costs), it processes 100K synthetic customer records through a serverless pipeline to generate predictive insights.
+A learning-focused proof-of-concept that demonstrates how to build an end-to-end ML pipeline for predicting customer engagement. This project is designed to run locally using LocalStack, allowing builders to explore AWS serverless architecture patterns end-to-end without requiring an AWS account or incurring cloud costs. The architecture and service choices intentionally map directly to real AWS deployments. It processes 100K synthetic customer records through a serverless pipeline to generate predictive insights.
 
 **What it demonstrates:**
 - Serverless orchestration patterns with Step Functions
@@ -23,6 +23,13 @@ A learning-focused proof-of-concept that demonstrates how to build an end-to-end
 ## Why This Project Exists
 
 This repository was created as a public learning project to explore AWS serverless orchestration patterns and to share practical architecture decisions with other builders. It is not affiliated with any employer and is intentionally open for community learning, experimentation, and discussion.
+
+**This repository helps other builders by:**
+- Providing a complete, working example of serverless ML pipeline architecture
+- Demonstrating real-world trade-offs (Lambda vs Fargate, S3+Athena vs databases, managed vs self-hosted)
+- Enabling safe experimentation with LocalStack (no AWS account or costs required)
+- Sharing lessons learned and common pitfalls to avoid
+- Showing how to structure Terraform modules for serverless architectures
 
 The goal is to demonstrate real-world trade-offs when building serverless ML pipelines on AWS, including when to use Lambda vs Fargate, how to structure data for Athena queries, and how to manage costs effectively.
 
@@ -177,6 +184,15 @@ This project demonstrates security and cost-aware design patterns rather than au
 
 ## Getting Started
 
+This project is designed to run entirely locally using LocalStack, which provides a local AWS cloud stack that mirrors real AWS services. This allows you to experiment with serverless architecture patterns, understand service interactions, and learn AWS best practices—all without creating an AWS account or incurring any cloud costs.
+
+**What you'll learn:**
+- How to orchestrate ML pipelines with Step Functions
+- When to choose Lambda vs Fargate for compute workloads
+- How to structure data for cost-effective Athena queries
+- How to integrate AI capabilities with Bedrock Knowledge Base
+- How to design serverless architectures with Terraform
+
 ### Prerequisites
 
 - Python 3.11+
@@ -194,15 +210,17 @@ cd poc-ai-app-predict-engage
 # 2. Generate synthetic data (100K records)
 python data/generate_platform_data.py
 
-# 3. Start LocalStack
+# 3. Start LocalStack (local AWS cloud stack)
 docker-compose up -d
 
-# 4. Deploy infrastructure (LocalStack)
+# 4. Deploy infrastructure to LocalStack
 make deploy-local
 
 # 5. Run ML pipeline
 make run-pipeline
 ```
+
+**Note:** LocalStack provides a local AWS environment that mirrors real AWS services. The architecture you'll see running locally maps directly to how it would run on real AWS—the only difference is you're not paying for it.
 
 See [Developer Guide](docs/developer/DEVELOPER_GUIDE.md) for detailed setup instructions.
 

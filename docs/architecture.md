@@ -13,7 +13,7 @@ This is a **learning-focused proof-of-concept** that demonstrates serverless ML 
 **Key Constraints:**
 - Built for learning and knowledge sharing, not production deployment
 - Uses synthetic data only (100K records generated with Faker)
-- Designed to run in LocalStack for zero-cost experimentation
+- Designed to run locally using LocalStack, enabling builders to experiment with AWS serverless patterns without cloud costs. The architecture maps directly to real AWS deployments.
 - IAM policies use wildcards for simplicity (must be tightened for production)
 - Cost-optimized for small-scale experimentation (~$12/month for 100K users)
 
