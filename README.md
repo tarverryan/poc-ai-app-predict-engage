@@ -30,6 +30,8 @@ This demonstrates:
 
 ### Quick Start (5 minutes)
 
+⚠️ **Cost Warning**: Run in a sandbox account; set AWS Budgets to prevent unexpected charges. See [Cost Safeguards](docs/deployment/cost_safeguards.md)
+
 ```bash
 # 1. Clone and setup
 git clone https://github.com/tarverryan/poc-ai-app-predict-engage.git
@@ -86,6 +88,16 @@ See [CONTRIBUTING.md](docs/governance/CONTRIBUTING.md), [CODE_OF_CONDUCT.md](doc
 **Local Development:** LocalStack, Docker Compose  
 **CI/CD:** GitHub Actions with 8-stage validation pipeline
 
+## Security
+
+### Dependency Scanning
+- **Python**: Run `pip-audit` to check for vulnerabilities
+- **Docker**: Images scanned via ECR vulnerability scanning
+- **Terraform**: Use `tfsec` for infrastructure security scanning
+
+### Reporting Security Issues
+See [SECURITY.md](docs/governance/SECURITY.md) for reporting process.
+
 ## Architecture
 
 Complete serverless architecture with:
@@ -111,6 +123,16 @@ Complete serverless architecture with:
 **Status:** Production-ready proof-of-concept  
 **Built:** October 2025  
 **Purpose:** Technical interview demonstration of full-stack ML platform capabilities
+
+## Important Disclaimer
+
+⚠️ **This is a Proof-of-Concept (POC) / Learning Project**
+
+- Security hardening, cost controls, and operational guardrails are **examples**, not production guarantees
+- IAM policies may use wildcards for simplicity; **tighten for production**
+- Run in a **sandbox AWS account** with budget alerts enabled
+- This code is provided "as-is" for demonstration purposes
+- All data is synthetic/mock data generated with Faker
 
 ## License
 

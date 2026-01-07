@@ -27,10 +27,10 @@ We take the security of this project seriously. If you believe you have found a 
    - Navigate to the Security tab → Advisories → New draft advisory
    - Provide detailed information about the vulnerability
 
-2. **Email** (if GitHub method unavailable)
-   - Send to: [security@yourcompany.com]
-   - Subject: "SECURITY: [Brief Description]"
-   - Include: Detailed description, steps to reproduce, potential impact
+2. **GitHub Security Advisories** (preferred)
+   - Navigate to the Security tab → Advisories → New draft advisory
+   - Provide detailed information about the vulnerability
+   - This method ensures private communication
 
 ### What to Include in Your Report
 
@@ -108,9 +108,9 @@ This project adheres to:
 
 ## Security Contacts
 
-- **Security Team**: [security@yourcompany.com]
-- **Privacy Officer**: [privacy@yourcompany.com]
-- **Compliance**: [compliance@yourcompany.com]
+- **Security Issues**: Use [GitHub Security Advisories](https://github.com/tarverryan/poc-ai-app-predict-engage/security/advisories/new) (private reporting)
+- **General Questions**: Open a [GitHub Discussion](https://github.com/tarverryan/poc-ai-app-predict-engage/discussions) with the "security" label
+- **Public Issues**: Create a [GitHub Issue](https://github.com/tarverryan/poc-ai-app-predict-engage/issues) (for non-sensitive security questions)
 
 ## Disclosure Policy
 

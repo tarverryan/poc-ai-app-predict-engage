@@ -871,7 +871,30 @@ networks:
 
 ---
 
-## 10. Next Steps
+## 10. Security & Permissions
+
+### IAM Policies & Permissions
+
+This platform uses IAM roles for service authentication. For detailed information about IAM policies, required permissions, and security considerations, see:
+
+- **[IAM Policies Documentation](../security/iam_policies.md)** - Detailed IAM policies with wildcard warnings and production hardening guidance
+- **[Required Permissions](../security/required_permissions.md)** - High-level summary of permissions required by each service
+- **[Secrets Management](../security/secrets_management.md)** - How to securely manage secrets using AWS Secrets Manager
+
+**Important:** IAM policies in this POC use wildcards (`Resource = "*"`) for simplicity. **These must be tightened for production deployments.** See the IAM Policies documentation for detailed guidance.
+
+### High-Level Permission Summary
+
+- **Lambda Functions:** S3 read/write, Athena query, Glue catalog access, DynamoDB access, CloudWatch metrics/logs, Bedrock model invocation
+- **Step Functions:** Lambda invocation, ECS task management, IAM PassRole, EventBridge rules, CloudWatch logs/metrics, X-Ray tracing
+- **ECS Fargate:** S3 read/write, Athena query, Glue catalog access, CloudWatch metrics/logs, ECR image pull, Secrets Manager access
+- **Bedrock Agent:** Bedrock model invocation, Knowledge Base retrieval, Lambda action handler invocation
+
+For complete details, see [Required Permissions](../security/required_permissions.md).
+
+---
+
+## 11. Next Steps
 
 1. **Implement Terraform modules** (6 modules)
 2. **Build Docker images** (training + inference)
@@ -881,6 +904,7 @@ networks:
 6. **Deploy API Gateway + DynamoDB**
 7. **Test end-to-end flow** (LocalStack)
 8. **Verify cost estimates** (Infracost)
+9. **Review IAM policies** and tighten for production (see [IAM Policies](../security/iam_policies.md))
 
 ---
 

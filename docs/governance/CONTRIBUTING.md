@@ -17,7 +17,7 @@ Thank you for considering contributing to the Customer Engagement Prediction Pla
 
 ## Code of Conduct
 
-This project adheres to a Code of Conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to [conduct@yourcompany.com].
+This project adheres to a Code of Conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior via [GitHub Issues](https://github.com/tarverryan/poc-ai-app-predict-engage/issues) (use the "Report Abuse" label) or [GitHub Discussions](https://github.com/tarverryan/poc-ai-app-predict-engage/discussions).
 
 See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details.
 
@@ -398,10 +398,10 @@ def test_demographic_parity(model, test_data):
 
 ## Questions?
 
-- **General**: Open a GitHub Discussion
-- **Bugs**: Create a GitHub Issue
-- **Security**: See SECURITY.md
-- **Ethics**: Contact [ethics@yourcompany.com]
+- **General**: Open a [GitHub Discussion](https://github.com/tarverryan/poc-ai-app-predict-engage/discussions)
+- **Bugs**: Create a [GitHub Issue](https://github.com/tarverryan/poc-ai-app-predict-engage/issues)
+- **Security**: See [SECURITY.md](SECURITY.md)
+- **Ethics**: Open a [GitHub Discussion](https://github.com/tarverryan/poc-ai-app-predict-engage/discussions) with the "ethics" label
 
 Thank you for contributing! 🙏
 
