@@ -201,6 +201,8 @@ This project demonstrates security and cost-aware design patterns rather than au
 
 **⚠️ Important:** Run this project in a sandbox AWS account and configure budgets before experimenting. See [Cost Safeguards](docs/deployment/cost_safeguards.md) for detailed guidance.
 
+**Privacy Note:** All datasets used in this project are fully synthetic and generated locally for demonstration purposes.
+
 ## Getting Started
 
 This project is designed to run entirely locally using LocalStack, which provides a local AWS cloud stack that mirrors real AWS services. This allows you to experiment with serverless architecture patterns, understand service interactions, and learn AWS best practices—all without creating an AWS account or incurring any cloud costs.
