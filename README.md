@@ -1,4 +1,4 @@
-# Customer Engagement Prediction Platform
+# Customer Engagement Prediction - Learning Project
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
@@ -270,7 +270,7 @@ See [CONTRIBUTING.md](docs/governance/CONTRIBUTING.md), [CODE_OF_CONDUCT.md](doc
 **ML/Analytics:** Python 3.11+, XGBoost, Pandas, NumPy, Scikit-learn  
 **Containers:** Docker, Amazon ECR  
 **Local Development:** LocalStack, Docker Compose  
-**CI/CD:** GitHub Actions with validation pipeline
+**CI/CD (optional):** GitHub Actions for basic validation
 
 ## Project Status
 

@@ -1,6 +1,6 @@
 # System Architecture
 
-**Customer Engagement Prediction Platform**  
+**Customer Engagement Prediction - Learning Project**  
 **Version:** 1.0  
 **Last Updated:** 2025-10-21
 
