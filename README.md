@@ -20,6 +20,16 @@ A learning-focused proof-of-concept that demonstrates how to build an end-to-end
 - AI-powered Q&A with Bedrock Knowledge Base
 - Cost-aware architecture decisions
 
+## Who This Is For
+
+This project is intended for:
+- Builders learning AWS serverless orchestration patterns
+- Engineers exploring when to use Lambda vs Fargate for ML workloads
+- Practitioners interested in cost-aware analytics using S3 and Athena
+- Developers curious about integrating Amazon Bedrock into data workflows without managing infrastructure
+
+It is intentionally designed as a learning-focused reference and discussion starter, not a production template.
+
 ## Why This Project Exists
 
 This repository was created as a public learning project to explore AWS serverless orchestration patterns and to share practical architecture decisions with other builders. It is not affiliated with any employer and is intentionally open for community learning, experimentation, and discussion.
