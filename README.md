@@ -30,6 +30,15 @@ This project is intended for:
 
 It is intentionally designed as a learning-focused reference and discussion starter, not a production template.
 
+## How to Learn From This Repo
+
+If you are using this repository as a learning resource:
+1. Start with **AWS Architecture Overview** to understand the system design
+2. Review the **End-to-End Flow** to see how AWS services interact
+3. Read **Key Design Decisions & Trade-offs** to understand architectural choices
+4. Explore **docs/lessons-learned.md** for practical insights and pitfalls
+5. Run the project locally with LocalStack to experiment safely and iteratively
+
 ## Why This Project Exists
 
 This repository was created as a public learning project to explore AWS serverless orchestration patterns and to share practical architecture decisions with other builders. It is not affiliated with any employer and is intentionally open for community learning, experimentation, and discussion.
